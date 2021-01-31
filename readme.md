@@ -9,11 +9,12 @@ that subdomain and the containing links of each page in table HTML format.
 
 ### Getting Started
 Run the following commands from this directory:
-1) `mvn clean compile assembly:single`
-2) `cd target `
+1. `mvn clean compile assembly:single`
+2. `cd target `
 
 ####Running the JAR
-`java -jar simple-web-crawler-0.0.1-SNAPSHOT {baseUrl} {numOfThreads}` 
+1. `java -jar simple-web-crawler-0.0.1-SNAPSHOT {baseUrl} {numOfThreads}`
+ 
 #####Arguments
 * {baseUrl} - The URL that should be crawled (e.g. https://example.com)
 * {numOfThreads} - The number of threads that will be used for execution
@@ -31,4 +32,3 @@ After the program has finished executing, view the results by exploring the HTML
 ##Improvements
 * Execution is currently limited to memory available as the crawl results are stored in memory before being published to file. 
   Period memory flushing to disk could be utilised to free up RAM storage.
-  
