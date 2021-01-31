@@ -16,7 +16,7 @@ Run the following commands from this directory:
 1. `java -jar simple-web-crawler-0.0.1-SNAPSHOT {baseUrl} {numOfThreads}`
  
 ##### Arguments
-* {baseUrl} - The URL that should be crawled (e.g. https://example.com)
+* {baseUrl} - The URL that should be crawled,e.g. https://example.com. *Do not include the 'www.' part of the URL here*
 * {numOfThreads} - The number of threads that will be used for execution
 
 #### Viewing Results
