@@ -9,7 +9,7 @@ that subdomain and the containing links of each page in table HTML format.
 
 ### Getting Started
 Run the following commands from this directory:
-1. `mvn clean compile assembly:single`
+1. `mvn clean package -DskipTests`
 2. `cd target `
 
 #### Running the JAR
@@ -20,7 +20,7 @@ Run the following commands from this directory:
 * {numOfThreads} - The number of threads that will be used for execution
 
 #### Viewing Results
-After the program has finished executing, view the results by exploring the HTML files inside the <i>results</i> directory.
+After the program has finished executing, view the results by opening the <i>sitemap.html</i> file in your current directory.
 
 ## Built With
 * [Spring Boot](https://spring.io/projects/spring-boot)
