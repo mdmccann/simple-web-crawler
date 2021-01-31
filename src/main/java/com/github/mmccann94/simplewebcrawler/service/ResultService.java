@@ -6,6 +6,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.FileWriter;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ResultService {
 
   private static final String OUTPUT_FILE_NAME = "sitemap.html";
@@ -31,8 +33,11 @@ public class ResultService {
       Template template = freemarkerConfig.getTemplate(TEMPLATE_NAME);
       template.process(getTemplateDataModel(siteMap), writer);
     } catch (TemplateException | IOException e) {
+      log.error("Failed to output results file.");
       throw new ResultOutputException(String.format("Failed to output results for %s", siteMap.getBaseUrl()), e);
     }
+
+    log.info(String.format("Results have been published to %s", OUTPUT_FILE_NAME));
   }
 
   private Map<String, Object> getTemplateDataModel(SiteMap siteMap) {
