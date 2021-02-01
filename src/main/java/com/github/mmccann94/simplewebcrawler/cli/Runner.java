@@ -18,12 +18,20 @@ public class Runner implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-    CrawlInputProperties properties = new CrawlInputProperties(args[0], Integer.parseInt(args[1]));
+    validateNumberOfArgs(args);
+
+    CrawlInputProperties inputProperties = new CrawlInputProperties(args[0], Integer.parseInt(args[1]));
 
     log.info(String.format("Starting Simple Web Crawler for root url {%s} with {%d} threads.",
-        properties.getBaseUrl(), properties.getNumOfThreads()));
+        inputProperties.getBaseUrl(), inputProperties.getNumOfThreads()));
 
-    crawlerService.crawlUrlAndOutputToFile(properties);
+    crawlerService.crawlUrlAndOutputToFile(inputProperties);
+  }
+
+  private void validateNumberOfArgs(String... args) {
+    if (args.length < 2) {
+      throw new IllegalArgumentException("A base url and number of threads must be supplied.");
+    }
   }
 
 }

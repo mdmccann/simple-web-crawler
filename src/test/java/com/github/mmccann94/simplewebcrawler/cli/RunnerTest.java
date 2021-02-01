@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -29,4 +30,10 @@ class RunnerTest {
     runner.run("https://example.com", "4");
     verify(crawlerService, times(1)).crawlUrlAndOutputToFile(new CrawlInputProperties("https://example.com", 4));
   }
+
+  @Test
+  void run_notEnoughArgs() {
+    assertThrows(IllegalArgumentException.class, () -> runner.run("https://example.com"));
+  }
+
 }

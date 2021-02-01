@@ -37,6 +37,7 @@ public class SiteCrawler {
     for (int i = 0; i < inputProperties.getNumOfThreads(); i++) {
       pageCrawlers.add(new PageCrawler(linkExtractionService, crawlConfig, linksToProcess, siteMap));
     }
+
     try {
       executorService.invokeAll(pageCrawlers);
     } catch (InterruptedException e) {
