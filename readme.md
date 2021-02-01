@@ -35,3 +35,6 @@ After the program has finished executing, view the results by opening the <i>sit
 ## Improvements
 * Execution is currently limited to memory available as the crawl results are stored in memory before being published to file. 
   Period memory flushing to disk could be utilised to free up local storage.
+* Kindness. The [Robots Exclusion Protocol](http://www.robotstxt.org/robotstxt.html) should be integrated to crawl in a more
+considerate way. 
+ 
