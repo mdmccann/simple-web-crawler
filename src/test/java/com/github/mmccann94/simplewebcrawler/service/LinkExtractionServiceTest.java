@@ -31,31 +31,31 @@ class LinkExtractionServiceTest {
   @Test
   void getContainingLinks_filtersOutExternalLinks() {
     when(linkExtractionPort.getLinksLocatedOnPage(URL)).thenReturn(Collections.singleton("http://facebook.com"));
-    assertEquals(0, sut.getContainingLinks(URL, URL).size());
+    assertEquals(0, sut.getContainingLinksOnPage(URL, URL).size());
   }
 
   @Test
   void getContainingLinks_filtersOutLinksToOtherSubdomains() {
     when(linkExtractionPort.getLinksLocatedOnPage(URL)).thenReturn(Collections.singleton("http://sub.example.com/page/"));
-    assertEquals(0, sut.getContainingLinks(URL, URL).size());
+    assertEquals(0, sut.getContainingLinksOnPage(URL, URL).size());
   }
 
   @Test
   void getContainingLinks_filtersOutLinksToFiles() {
     when(linkExtractionPort.getLinksLocatedOnPage(URL)).thenReturn(Collections.singleton("https://example.com/contact-us/how-to-contact.pdf"));
-    assertEquals(0, sut.getContainingLinks(URL, URL).size());
+    assertEquals(0, sut.getContainingLinksOnPage(URL, URL).size());
   }
 
   @Test
   void getContainingLinks_removesAnchors() {
     when(linkExtractionPort.getLinksLocatedOnPage(URL)).thenReturn(Collections.singleton("https://example.com/another-page#some-heading"));
-    assertTrue(sut.getContainingLinks(URL, URL).contains("https://example.com/another-page"));
+    assertTrue(sut.getContainingLinksOnPage(URL, URL).contains("https://example.com/another-page"));
   }
 
   @Test
   void getContainingLinks_removesEndingSlash() {
     when(linkExtractionPort.getLinksLocatedOnPage(URL)).thenReturn(Collections.singleton("https://example.com/another-page/"));
-    assertTrue(sut.getContainingLinks(URL, URL).contains("https://example.com/another-page"));
+    assertTrue(sut.getContainingLinksOnPage(URL, URL).contains("https://example.com/another-page"));
   }
 
 }

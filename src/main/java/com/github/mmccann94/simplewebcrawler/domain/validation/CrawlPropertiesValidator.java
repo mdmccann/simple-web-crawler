@@ -10,7 +10,6 @@ public class CrawlPropertiesValidator {
 
   public void validate(CrawlProperties crawlProperties) {
 
-    // todo : regex for website?
     if (isNull(crawlProperties.getBaseUrl()) || crawlProperties.getBaseUrl().strip().equals("")) {
       throw new IllegalArgumentException("Invalid base url supplied: " + crawlProperties.getBaseUrl());
     }

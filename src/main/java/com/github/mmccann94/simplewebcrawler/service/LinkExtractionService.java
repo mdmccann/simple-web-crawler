@@ -15,7 +15,7 @@ public class LinkExtractionService {
 
   private final LinkExtractionPort linkExtractionPort;
 
-  public Set<String> getContainingLinks(String url, String baseUrl) {
+  public Set<String> getContainingLinksOnPage(String url, String baseUrl) {
     return linkExtractionPort.getLinksLocatedOnPage(url)
         .stream()
         .filter(link -> isInternalLink(link, baseUrl))

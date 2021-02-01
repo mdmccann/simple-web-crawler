@@ -49,7 +49,7 @@ class PageCrawlerTest {
   void call_populatesLinksOnPage() throws Exception {
     newLinks.put(BASE_URL);
     when(siteMap.getBaseUrl()).thenReturn(BASE_URL);
-    when(linkExtractionService.getContainingLinks(BASE_URL, BASE_URL)).thenReturn(Set.of(LINK_FROM_HOMEPAGE));
+    when(linkExtractionService.getContainingLinksOnPage(BASE_URL, BASE_URL)).thenReturn(Set.of(LINK_FROM_HOMEPAGE));
     when(siteMap.getPageLinksMap()).thenReturn(new ConcurrentHashMap<>());
     cut.call();
     assertTrue(siteMap.getPageLinksMap().get(BASE_URL).contains(LINK_FROM_HOMEPAGE));
@@ -59,17 +59,17 @@ class PageCrawlerTest {
   void call_doesNotRequestLinksForAPageWhichIsAlreadyComplete() throws Exception {
     newLinks.put(BASE_URL);
     when(siteMap.getBaseUrl()).thenReturn(BASE_URL);
-    when(linkExtractionService.getContainingLinks(BASE_URL, BASE_URL)).thenReturn(Set.of(BASE_URL));
+    when(linkExtractionService.getContainingLinksOnPage(BASE_URL, BASE_URL)).thenReturn(Set.of(BASE_URL));
     when(siteMap.getPageLinksMap()).thenReturn(new ConcurrentHashMap<>());
     cut.call();
-    verify(linkExtractionService, times(1)).getContainingLinks(BASE_URL, BASE_URL);
+    verify(linkExtractionService, times(1)).getContainingLinksOnPage(BASE_URL, BASE_URL);
   }
 
   @Test
   void call_addsToBrokenLinksCollection() throws Exception {
     newLinks.put(BASE_URL);
     when(siteMap.getBaseUrl()).thenReturn(BASE_URL);
-    when(linkExtractionService.getContainingLinks(BASE_URL, BASE_URL)).thenThrow(new UnreachableLinkException("error"));
+    when(linkExtractionService.getContainingLinksOnPage(BASE_URL, BASE_URL)).thenThrow(new UnreachableLinkException("error"));
     when(siteMap.getBrokenLinks()).thenReturn(ConcurrentHashMap.newKeySet());
     cut.call();
     assertTrue(siteMap.getBrokenLinks().contains(BASE_URL));
