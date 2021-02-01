@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CrawlProperties {
+public class CrawlInputProperties {
   String baseUrl;
   int numOfThreads;
 }

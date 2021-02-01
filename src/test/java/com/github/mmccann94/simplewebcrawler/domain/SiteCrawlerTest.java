@@ -19,21 +19,23 @@ class SiteCrawlerTest {
   @Mock
   private LinkExtractionService linkExtractionService;
   @Mock
-  private CrawlProperties crawlProperties;
+  private CrawlConfig crawlConfig;
+  @Mock
+  private CrawlInputProperties crawlInputProperties;
 
   private SiteCrawler cut;
 
   @BeforeEach
   void setUp() {
-    when(crawlProperties.getBaseUrl()).thenReturn("https://example.com");
-    when(crawlProperties.getNumOfThreads()).thenReturn(4);
-    cut = new SiteCrawler(propertiesValidator, linkExtractionService);
+    when(crawlInputProperties.getBaseUrl()).thenReturn("https://example.com");
+    when(crawlInputProperties.getNumOfThreads()).thenReturn(4);
+    cut = new SiteCrawler(propertiesValidator, linkExtractionService, crawlConfig);
   }
 
   @Test
   void crawl_callsValidator() {
-    cut.crawl(crawlProperties);
-    verify(propertiesValidator).validate(crawlProperties);
+    cut.crawl(crawlInputProperties);
+    verify(propertiesValidator).validate(crawlInputProperties);
   }
 
 }

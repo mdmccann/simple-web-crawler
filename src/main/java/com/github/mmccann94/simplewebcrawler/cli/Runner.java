@@ -1,6 +1,6 @@
 package com.github.mmccann94.simplewebcrawler.cli;
 
-import com.github.mmccann94.simplewebcrawler.domain.CrawlProperties;
+import com.github.mmccann94.simplewebcrawler.domain.CrawlInputProperties;
 import com.github.mmccann94.simplewebcrawler.service.CrawlerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ public class Runner implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-    CrawlProperties properties = new CrawlProperties(args[0], Integer.parseInt(args[1]));
+    CrawlInputProperties properties = new CrawlInputProperties(args[0], Integer.parseInt(args[1]));
 
     log.info(String.format("Starting Simple Web Crawler for root url {%s} with {%d} threads.",
         properties.getBaseUrl(), properties.getNumOfThreads()));

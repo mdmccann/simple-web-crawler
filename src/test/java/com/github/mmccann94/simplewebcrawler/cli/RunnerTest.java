@@ -1,6 +1,6 @@
 package com.github.mmccann94.simplewebcrawler.cli;
 
-import com.github.mmccann94.simplewebcrawler.domain.CrawlProperties;
+import com.github.mmccann94.simplewebcrawler.domain.CrawlInputProperties;
 import com.github.mmccann94.simplewebcrawler.service.CrawlerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +27,6 @@ class RunnerTest {
   @Test
   void run() {
     runner.run("https://example.com", "4");
-    verify(crawlerService, times(1)).crawlUrlAndOutputToFile(new CrawlProperties("https://example.com", 4));
+    verify(crawlerService, times(1)).crawlUrlAndOutputToFile(new CrawlInputProperties("https://example.com", 4));
   }
 }

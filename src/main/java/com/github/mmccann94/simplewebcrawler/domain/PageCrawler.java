@@ -24,16 +24,15 @@ import static java.util.Objects.isNull;
 @Slf4j
 public class PageCrawler implements Callable<Void> {
 
-  private static final int POLLING_TIMEOUT_MILLIS = 5000;
-
   private final LinkExtractionService linkExtractionService;
+  private final CrawlConfig crawlConfig;
   private final LinkedBlockingQueue<String> linksToProcess;
   private final SiteMap siteMap;
 
   @Override
   public Void call() throws InterruptedException {
     while (true) {
-      String newPageUrl = linksToProcess.poll(POLLING_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
+      String newPageUrl = linksToProcess.poll(crawlConfig.getPollingTimeoutMillis(), TimeUnit.MILLISECONDS);
       log.debug(String.format("Thread ID: {%d} has picked up URL: %s", Thread.currentThread().getId(), newPageUrl));
 
       if (isNull(newPageUrl)) {

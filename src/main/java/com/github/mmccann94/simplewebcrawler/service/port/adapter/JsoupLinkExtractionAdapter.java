@@ -1,7 +1,9 @@
 package com.github.mmccann94.simplewebcrawler.service.port.adapter;
 
+import com.github.mmccann94.simplewebcrawler.domain.CrawlConfig;
 import com.github.mmccann94.simplewebcrawler.exception.UnreachableLinkException;
 import com.github.mmccann94.simplewebcrawler.service.port.LinkExtractionPort;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,10 +17,10 @@ import static java.util.Objects.isNull;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class JsoupLinkExtractionAdapter implements LinkExtractionPort {
 
-  private static final int RETRY_LIMIT = 3;
-  private static final int RETRY_DELAY_MILLIS = 5000;
+  private final CrawlConfig crawlConfig;
 
   @Override
   public Set<String> getLinksLocatedOnPage(String url) {
@@ -36,17 +38,17 @@ public class JsoupLinkExtractionAdapter implements LinkExtractionPort {
       try {
         document = Jsoup.connect(url).get();
       } catch (IOException e) {
-        if (attempts >= RETRY_LIMIT) {
+        if (attempts >= crawlConfig.getHttpRetryLimit()) {
           log.error(String.format("Failed to load url [%s].", url));
           throw new UnreachableLinkException(String.format("Could not extract links from %s", url), e);
         }
         attempts++;
         try {
-          Thread.sleep(RETRY_DELAY_MILLIS);
+          Thread.sleep(crawlConfig.getHttpRetryDelayMillis());
         } catch (InterruptedException ex) {
           Thread.currentThread().interrupt();
         }
-        log.error(String.format("Failed to load url [%s], retrying. Attempt: [%d/%d]", url, attempts, RETRY_LIMIT));
+        log.error(String.format("Failed to load url [%s], retrying. Attempt: [%d/%d]", url, attempts, crawlConfig.getHttpRetryLimit()));
       }
 
     return document;

@@ -30,14 +30,17 @@ class PageCrawlerTest {
   private LinkExtractionService linkExtractionService;
   @Mock
   private SiteMap siteMap;
+  @Mock
+  private CrawlConfig crawlConfig;
   private LinkedBlockingQueue<String> newLinks;
 
   private PageCrawler cut;
 
   @BeforeEach
   void setUp() {
+    when(crawlConfig.getPollingTimeoutMillis()).thenReturn(100);
     newLinks = new LinkedBlockingQueue<>();
-    cut = new PageCrawler(linkExtractionService, newLinks, siteMap);
+    cut = new PageCrawler(linkExtractionService, crawlConfig, newLinks, siteMap);
   }
 
   @Test

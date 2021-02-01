@@ -1,0 +1,4 @@
+crawler:
+  polling-timeout-millis: 5000
+  http-retry-delay-millis: 5000
+  http-retry-limit: 3
